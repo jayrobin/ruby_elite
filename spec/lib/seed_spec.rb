@@ -10,6 +10,7 @@ describe "Seed" do
 	its(:w1) { should == 2 }
 	its(:w2) { should == 3 }
 
+	it { should respond_to(:w0, :w1, :w2) }
 
 	context "#tweak" do
 		it { should respond_to(:tweak) }

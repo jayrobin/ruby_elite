@@ -6,6 +6,8 @@ describe "FastSeed" do
 	subject { fast_seed }
 
 	it { should be_an_instance_of(FastSeed) }
+	it { should respond_to(:a, :b, :c, :d) }
+
 	its(:a) { should == 1 }
 	its(:b) { should == 2 }
 	its(:c) { should == 3 }
