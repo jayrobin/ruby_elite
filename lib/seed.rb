@@ -18,6 +18,10 @@ class Seed
 		@w2 = twist_int(@w2)
 	end
 
+	def to_s
+		"#{@w0}, #{@w1}, #{@w2}"
+	end
+
 	private
 
 	def twist_int(num)

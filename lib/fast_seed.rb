@@ -7,4 +7,8 @@ class FastSeed
 		@c = c
 		@d = d
 	end
+
+	def to_s
+		"#{@a}, #{@b}, #{@c}, #{@d}"
+	end
 end

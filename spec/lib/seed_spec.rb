@@ -1,7 +1,7 @@
 require_relative '../spec_helper'
 require_relative '../../lib/seed'
 
-describe "Seed" do
+describe Seed do
 	let(:seed) { Seed.new(1, 2, 3) }
 	subject { seed }
 
