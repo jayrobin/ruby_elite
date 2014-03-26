@@ -34,6 +34,13 @@ class Planet
 		info << "\nPopulation: #{@population >> 3} Billion"
 	end
 
+	def calculate_distance(planet)
+		x_dist = (x - planet.x).abs
+		y_dist = (y - planet.y).abs
+
+		Math.sqrt((x_dist ** 2) + (y_dist ** 2))
+	end
+
 	private
 
 	def set_position(seed)
@@ -96,4 +103,5 @@ class Planet
 
 		@name.gsub!('.', '')
 	end
+
 end
