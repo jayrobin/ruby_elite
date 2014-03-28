@@ -1,5 +1,5 @@
-require_relative '../spec_helper'
-require_relative '../../lib/seed'
+require 'spec_helper'
+require 'Seed'
 
 describe Seed do
 	let(:seed) { Seed.new(1, 2, 3) }

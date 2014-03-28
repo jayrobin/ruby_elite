@@ -1,5 +1,5 @@
-require_relative '../spec_helper'
-require_relative '../../lib/random'
+require 'spec_helper'
+require 'Random'
 require_relative '../../lib/fast_seed'
 
 describe Random do

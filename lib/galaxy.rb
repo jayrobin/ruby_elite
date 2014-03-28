@@ -18,4 +18,14 @@ class Galaxy
 			@systems << Planet.new(seed)
 		end
 	end
+
+	def get_planet(planet_name)
+		self.systems.each { |system| return system if system.name == planet_name }
+
+		nil
+	end
+
+	def get_nearby_planets(planet, distance)
+		self.systems.select { |system| planet.calculate_distance(system) <= distance && planet.calculate_distance(system) > 0 } 
+	end
 end

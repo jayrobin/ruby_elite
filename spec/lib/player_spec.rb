@@ -1,8 +1,8 @@
-require_relative '../spec_helper'
-require_relative '../../lib/player'
-require_relative '../../lib/planet'
-require_relative '../../lib/galaxy'
-require_relative '../../lib/seed'
+require 'spec_helper'
+require 'Player'
+require 'Planet'
+require 'Galaxy'
+require 'Seed'
 
 describe Player do
 	subject { player }

@@ -1,6 +1,6 @@
-require_relative '../spec_helper'
-require_relative '../../lib/planet'
-require_relative '../../lib/seed'
+require 'spec_helper'
+require 'Planet'
+require 'Seed'
 
 describe Planet do
 	subject { planet }

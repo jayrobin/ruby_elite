@@ -8,7 +8,7 @@ class Seed
 	end
 
 	def tweak
-		sum = @w0 + @w1 + @w2
+		sum = (@w0 + @w1 + @w2) & 0xFFFF
 		@w0, @w1, @w2 = @w1, @w2, sum
 	end
 

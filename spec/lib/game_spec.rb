@@ -1,5 +1,5 @@
-require_relative '../spec_helper'
-require_relative '../../lib/game'
+require 'spec_helper'
+require 'Game'
 
 describe Game do
 	subject { game }
