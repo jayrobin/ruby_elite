@@ -1,7 +1,7 @@
 require_relative 'planet'
 
 class Galaxy
-	attr_reader :systems
+	attr_reader :num, :systems
 
 	NUM_SYSTEMS = 256
 

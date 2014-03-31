@@ -33,14 +33,14 @@ class Planet
 		info << "\nTech Level: #{@tech_level + 1}"
 		info << "\nTurnover: #{@productivity}"
 		info << "\nRadius: #{@radius}"
-		info << "\nPopulation: #{@population >> 3} Billion"
+		info << "\nPopulation: #{@population >> 3} Billion\n"
 	end
 
 	def to_s
 		info = "#{@name}"
 		info << "\tTL: #{@tech_level + 1}"
 		info << "\t#{ECONOMY_NAMES[@economy]}"
-		info << "\t#{GOVERNMENT_NAMES[@government]}"
+		info << "\t#{GOVERNMENT_NAMES[@government]}\n"
 	end
 
 	def calculate_distance(planet)
