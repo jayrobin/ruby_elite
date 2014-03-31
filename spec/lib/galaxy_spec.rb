@@ -4,7 +4,7 @@ require 'Seed'
 
 describe Galaxy do
 	subject { galaxy }
-	let(:galaxy) { Galaxy.new(1) }
+	let(:galaxy) { Galaxy.new(1, []) }
 	let(:seed) { Seed.new(0x5A4A, 0x0248, 0xB753) }
 
 

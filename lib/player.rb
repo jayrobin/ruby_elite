@@ -1,3 +1,5 @@
+require_relative 'random'
+
 class Player
 	attr_accessor :planet, :cash, :fuel, :cargo_space, :cargo
 
@@ -15,6 +17,7 @@ class Player
 		
 		if distance <= @fuel
 			@planet = other_planet
+			other_planet.set_market((rand * 65536).floor & 0xFF)
 			@fuel -= distance
 			return true
 		end

@@ -4,13 +4,15 @@ require 'Seed'
 
 describe Planet do
 	subject { planet }
-	let(:planet) { Planet.new(seed) }
+	let(:planet) { Planet.new(seed, []) }
 	let(:seed) { Seed.new(0x5A4A, 0x0248, 0xB753) }
 
 	it { should be_an_instance_of(Planet) }
-	it { should respond_to(:x, :y, :economy, :government, :tech_level, :population, :productivity, :radius, :name) }
+	it { should respond_to(	:x, :y, :economy, :government, :tech_level, :population, :productivity, 
+													:radius, :name, :market_quantities, :market_prices) }
 	it { should respond_to(:calculate_distance).with(1).argument }
 	it { should respond_to(:print).with(1).argument }
+	it { should respond_to(:set_market).with(2).arguments }
 
 	its(:x) { should be_between(0, 255) }
 	its(:y) { should be_between(0, 255) }

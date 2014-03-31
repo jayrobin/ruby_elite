@@ -5,8 +5,9 @@ class Galaxy
 
 	NUM_SYSTEMS = 256
 
-	def initialize(num)
+	def initialize(num, commodities)
 		@num = num
+		@commodities = commodities
 		@systems = []
 	end
 
@@ -15,7 +16,7 @@ class Galaxy
 
 		@systems = []
 		NUM_SYSTEMS.times do
-			@systems << Planet.new(seed)
+			@systems << Planet.new(seed, @commodities)
 		end
 	end
 

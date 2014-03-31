@@ -7,7 +7,7 @@ require 'Seed'
 describe Player do
 	subject { player }
 	let(:player) { Player.new(planet) }
-	let(:planet) { Planet.new(seed) }
+	let(:planet) { Planet.new(seed, []) }
 	let(:seed) { Seed.new(0x5A4A, 0x0248, 0xB753) }
 
 
@@ -24,7 +24,7 @@ describe Player do
 
 	it { should respond_to(:jump_to).with(1).argument }
 	context "#jump_to" do
-		let(:other_planet) { Planet.new(seed) }
+		let(:other_planet) { Planet.new(seed, []) }
 
 		it "should change player planet when jumping" do
 			planet.stub(:calculate_distance).and_return(0)

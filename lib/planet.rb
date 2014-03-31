@@ -1,5 +1,6 @@
 class Planet
-	attr_reader :x, :y, :economy, :government, :tech_level, :population, :productivity, :radius, :name
+	attr_reader :x, :y, :economy, :government, :tech_level, :population, :productivity, 
+							:radius, :name, :market_quantities, :market_prices
 
 	LETTER_PAIRS = "..LEXEGEZACEBISO" +
                  "USESARMAINDIREA." +
@@ -12,7 +13,7 @@ class Planet
 	ECONOMY_NAMES = ["Rich Ind", "Average Ind", "Poor Ind", "Mainly Ind",
                      "Mainly Agri", "Rich Agri", "Average Agri", "Poor Agri"];
 
-	def initialize(seed)
+	def initialize(seed, commodities)
 		set_position(seed)
 		set_government(seed)
 		set_economy(seed)
@@ -21,6 +22,7 @@ class Planet
 		set_productivity(seed)
 		set_radius(seed)
 		set_name(seed)
+		set_market(0, commodities)
 	end
 
 	def print(compressed)
@@ -50,6 +52,34 @@ class Planet
 		Math.sqrt((x_dist ** 2) + (y_dist ** 2))
 	end
 
+	def set_market(fluctuation, commodities = @commodities)
+		@commodities = commodities
+		@market_quantities = []
+		@market_prices = []
+
+		commodities.each do |item|
+			product = @economy * item.gradient
+			changing = fluctuation & item.mask_byte
+			q = item.base_quant + changing - product
+			q = q & 0xFF
+			q = 0 if q & 0x80 > 0
+			@market_quantities << (q & 0x3F)
+
+			q = item.base_price + changing + product
+			q = q & 0xFF
+			@market_prices << (q * 4)
+		end
+	end
+
+	def get_market
+		market = ""
+		@commodities.each_with_index do |item, index|
+			market << format("#{item.name}\t$%.1f\t#{@market_quantities[index]} #{item.unit}\n", @market_prices[index].to_f / 10)
+		end
+
+		market
+	end
+
 	private
 
 	def set_position(seed)
@@ -68,7 +98,7 @@ class Planet
 
 	def set_tech_level(seed)
 		@tech_level = (((seed.w1 >> 8) & 0x03) + (@economy ^ 0x07)).floor + (@government >> 1)
-		@tech_level += 1 if @government & 0x01
+		@tech_level += 1 if @government & 0x01 > 0
 	end
 
 	def set_population(seed)
@@ -112,5 +142,4 @@ class Planet
 
 		@name.gsub!('.', '')
 	end
-
 end
