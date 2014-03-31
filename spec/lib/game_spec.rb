@@ -6,5 +6,5 @@ describe Game do
 	let(:game) { Game.new }
 
 	it { should be_an_instance_of(Game) }
-	it { should respond_to(:run) }
+	it { should respond_to(:parse).with(1).argument }
 end

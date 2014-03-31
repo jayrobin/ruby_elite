@@ -16,6 +16,9 @@ class Player
 		if distance <= @fuel
 			@planet = other_planet
 			@fuel -= distance
+			return true
 		end
+
+		false	# could not jump: not enough fuel
 	end
 end

@@ -7,6 +7,7 @@ class Elite
 
 	def run
 		while(@game.running) do
+			print "> "
 			input = gets.chomp
 			puts @game.parse(input)
 		end

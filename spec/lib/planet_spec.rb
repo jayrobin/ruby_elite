@@ -10,6 +10,7 @@ describe Planet do
 	it { should be_an_instance_of(Planet) }
 	it { should respond_to(:x, :y, :economy, :government, :tech_level, :population, :productivity, :radius, :name) }
 	it { should respond_to(:calculate_distance).with(1).argument }
+	it { should respond_to(:print).with(1).argument }
 
 	its(:x) { should be_between(0, 255) }
 	its(:y) { should be_between(0, 255) }

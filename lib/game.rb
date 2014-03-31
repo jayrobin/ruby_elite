@@ -36,15 +36,15 @@ class Game
 		local_planets = @galaxy.get_nearby_planets(@player.planet, @player.fuel)
 		
 		output = "Planets within #{@player.fuel} LY:\n"
-		local_planets.each { |planet| output += " #{planet.name} (#{planet.calculate_distance(@player.planet)} LY)\n" }
+		local_planets.each { |planet| output += "\t#{planet.print(true)}\t(#{planet.calculate_distance(@player.planet)} LY)\n" }
 		output
 	end
 
 	def command_jump(planet_name)
 		planet = @galaxy.get_planet(planet_name)
-		return "Could not find #{planet_name}" if planet.nil?
+		return "Could not jump to #{planet_name}" if planet.nil?
 
-		@player.jump_to(planet)
+		@player.jump_to(planet) ? planet.print(false) : "Not enough fuel"
 	end
 
 	def command_exit

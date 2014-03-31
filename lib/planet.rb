@@ -23,7 +23,9 @@ class Planet
 		set_name(seed)
 	end
 
-	def to_s
+	def print(compressed)
+		return to_s if compressed
+
 		info = "System: #{@name}"
 		info << "\nPosition (#{@x}, #{@y})"
 		info << "\nEconomy: (#{@economy}) #{ECONOMY_NAMES[@economy]}"
@@ -32,6 +34,13 @@ class Planet
 		info << "\nTurnover: #{@productivity}"
 		info << "\nRadius: #{@radius}"
 		info << "\nPopulation: #{@population >> 3} Billion"
+	end
+
+	def to_s
+		info = "#{@name}"
+		info << "\tTL: #{@tech_level + 1}"
+		info << "\t#{ECONOMY_NAMES[@economy]}"
+		info << "\t#{GOVERNMENT_NAMES[@government]}"
 	end
 
 	def calculate_distance(planet)

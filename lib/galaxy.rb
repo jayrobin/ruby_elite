@@ -26,6 +26,6 @@ class Galaxy
 	end
 
 	def get_nearby_planets(planet, distance)
-		self.systems.select { |system| planet.calculate_distance(system) <= distance && planet.calculate_distance(system) > 0 } 
+		self.systems.select { |system| planet.calculate_distance(system) <= distance } 
 	end
 end
