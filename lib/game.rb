@@ -22,12 +22,18 @@ class Game
 		when "local"
 			command_get_local
 		when "jump"
-			command_jump(parts[1].upcase)
+			command_jump(parts[1])
+		when "fuel"
+			command_fuel(parts[1])
 		when "exit"
 			command_exit
 		else
 			unknown_command(parts[0])
 		end
+	end
+
+	def get_player_cash
+		@player.cash
 	end
 
 	private
@@ -41,10 +47,19 @@ class Game
 	end
 
 	def command_jump(planet_name)
-		planet = @galaxy.get_planet(planet_name)
+		return "Must enter a planet name" if planet_name.nil?
+
+		planet = @galaxy.get_planet(planet_name.upcase)
 		return "Could not jump to #{planet_name}" if planet.nil?
 
 		@player.jump_to(planet) ? planet.print(false) : "Not enough fuel"
+	end
+
+	def command_fuel(amount)
+		return "Must supply an amount" if amount.nil?
+
+		fuel = @player.buy_fuel(amount.to_f)
+		"You have #{fuel} LY of fuel"
 	end
 
 	def command_exit

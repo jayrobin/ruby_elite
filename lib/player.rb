@@ -21,4 +21,11 @@ class Player
 
 		false	# could not jump: not enough fuel
 	end
+
+	def buy_fuel(amount)
+		amount = [[amount, @cash].min, 0].max
+
+		@cash -= amount
+		@fuel += amount
+	end
 end

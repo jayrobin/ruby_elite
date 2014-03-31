@@ -7,7 +7,7 @@ class Elite
 
 	def run
 		while(@game.running) do
-			print "> "
+			print "$#{@game.get_player_cash} > "
 			input = gets.chomp
 			puts @game.parse(input)
 		end
