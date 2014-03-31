@@ -3,6 +3,8 @@ require_relative 'galaxy'
 require_relative 'player'
 
 class Game
+	attr_reader :running
+
 	DEFAULT_SEED = Seed.new(0x5A4A, 0x0248, 0xB753)
 
 	def initialize
@@ -10,17 +12,8 @@ class Game
 		@galaxy.generate(DEFAULT_SEED)
 
 		@player = Player.new(@galaxy.systems[7])
-	end
-
-	def run
 		@running = true
-		while(@running) do
-			input = gets.chomp
-			puts parse(input)
-		end
 	end
-
-	private
 
 	def parse(input)
 		parts = input.split(" ")
@@ -36,6 +29,8 @@ class Game
 			unknown_command(parts[0])
 		end
 	end
+
+	private
 
 	def command_get_local
 		local_planets = @galaxy.get_nearby_planets(@player.planet, @player.fuel)
@@ -54,12 +49,10 @@ class Game
 
 	def command_exit
 		@running = false
+		"Quitting game..."
 	end
 
 	def unknown_command(command)
 		puts "Unrecognised command: #{command}"
 	end
 end
-
-game = Game.new
-game.run
