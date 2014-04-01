@@ -49,11 +49,24 @@ class Player
 
 		@cash -= amount * price
 		@cargo[item_index] += amount
-		@cargo_space -= amount
+		@cargo_space -= amount if item_unit == "T"
 		@planet.take_item(item_index, amount)
 	end
 
 	def sell(item_name, amount)
+		item_index = @planet.get_item_index(item_name)
+		return 0 if item_index.nil?
 
+		price = @planet.get_item_price(item_index)
+		item_unit = @planet.get_item_unit(item_index)
+
+		amount = [amount, cargo[item_index]].min
+
+		@cash += amount * price
+		@cargo[item_index] -= amount
+		@cargo_space += amount if item_unit == "T"
+		@planet.give_item(item_index, amount)
+
+		amount
 	end
 end

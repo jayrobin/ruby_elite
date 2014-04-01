@@ -26,6 +26,8 @@ class Game
 		case parts[0]
 		when "buy"
 			command_buy(parts[1], parts[2])
+		when "sell"
+			command_sell(parts[1], parts[2])
 		when "local"
 			command_get_local
 		when "info"
@@ -54,6 +56,13 @@ class Game
 		return "Could not complete trade" if amount == 0
 
 		"Purchased #{amount} of #{item_name}"
+	end
+
+	def command_sell(item_name = "", amount = 0)
+		amount = @player.sell(item_name, amount.to_i)
+		return "Could not complete trade" if amount == 0
+
+		"Sold #{amount} of #{item_name}"
 	end
 
 	def command_get_local

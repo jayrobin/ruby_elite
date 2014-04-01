@@ -82,7 +82,7 @@ class Planet
 
 	def get_item_index(item_name)
 		@commodities.each_with_index do |item, index|
-			return index if item.name.gsub(/\s+/, "").upcase == item_name.upcase
+			return index if item.name.strip.upcase == item_name.upcase
 		end
 
 		nil

@@ -91,7 +91,7 @@ describe Player do
 			expect { player.buy("some item", 5) }.to change { player.cash }.by(-5 * planet.get_item_price(0))
 		end
 
-		it "should reduce player cargo by amount" do
+		it "should reduce free player cargo by amount" do
 			expect { player.buy("some item", 5) }.to change { player.cargo_space }.by(-5)
 		end
 
@@ -123,5 +123,37 @@ describe Player do
 	end
 
 	it { should respond_to(:sell).with(2).arguments }
-	
+	context "#sell" do
+		before(:each) do
+			planet.set_market(0, [TradeGood.new(1, 0, 0, 0, "T", "some item")])
+			planet.market_prices[0] = 1
+			player.cargo[0] = 10
+		end
+
+		it "should increase player cash by amount * item price" do
+			expect { player.sell("some item", 5) }.to change { player.cash }.by(5 * planet.get_item_price(0))
+		end
+
+		it "should increase free player cargo by amount" do
+			expect { player.sell("some item", 5) }.to change { player.cargo_space }.by(5)
+		end
+
+		it "should increase planet stock of item by amount" do
+			expect { player.sell("some item", 5) }.to change { planet.market_quantities[0] }.by(5)
+		end
+
+		it "should reduce player stock of item by amount" do
+			expect { player.sell("some item", 5) }.to change { player.cargo[0] }.by(-5)
+		end
+
+		it "should return amount" do
+			player.sell("some item", 5).should == 5
+		end
+
+		it "should limit the sale to the quantity held by the player" do
+			planet.market_quantities[0] = 0
+			player.cargo[0] = 10
+			expect { player.sell("some item", 999) }.to change { planet.market_quantities[0] }.by(10)
+		end
+	end
 end
