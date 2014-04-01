@@ -7,9 +7,9 @@ class Elite
 
 	def run
 		while(@game.running) do
-			print "$#{@game.get_player_cash} > "
+			print format("$%.1f > ", @game.get_player_cash)
 			input = gets.chomp
-			puts @game.parse(input)
+			puts @game.parse(input) << "\n"
 		end
 	end
 end

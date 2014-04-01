@@ -24,6 +24,8 @@ class Game
 		parts = input.split(" ")
 
 		case parts[0]
+		when "buy"
+			command_buy(parts[1], parts[2])
 		when "local"
 			command_get_local
 		when "info"
@@ -47,6 +49,13 @@ class Game
 
 	private
 
+	def command_buy(item_name = "", amount = 0)
+		amount = @player.buy(item_name, amount.to_i)
+		return "Could not complete trade" if amount == 0
+
+		"Purchased #{amount} of #{item_name}"
+	end
+
 	def command_get_local
 		local_planets = @galaxy.get_nearby_planets(@player.planet, @player.fuel)
 		
@@ -60,14 +69,14 @@ class Game
 	end
 
 	def command_info(planet_name)
-		return "Must enter a planet name" if planet_name.nil?
+		planet_name ||= @player.planet.name
 
 		planet = @galaxy.get_planet(planet_name.upcase)
 		planet.nil? ? "Could not find #{planet_name}" : planet.print(false)
 	end
 
 	def command_mkt
-		@player.planet.get_market
+		@player.planet.get_market << "Fuel: #{@player.fuel}\tCargo Space: #{@player.cargo_space}\n"
 	end
 
 	def command_jump(planet_name)

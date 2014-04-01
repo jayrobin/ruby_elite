@@ -13,7 +13,6 @@ describe Player do
 
 	it { should be_an_instance_of(Player) }
 	it { should respond_to(:planet, :cash, :fuel, :cargo, :cargo_space) }
-	it { should respond_to(:buy_fuel).with(1).argument }
 	
 	its(:planet) { should be_an_instance_of(Planet) }
 	its(:cash) { should be >= 0 }
@@ -42,6 +41,7 @@ describe Player do
 		end
 	end
 
+	it { should respond_to(:buy_fuel).with(1).argument }
 	context "#buy_fuel" do
 		it "should increase fuel by the amount supplied" do
 			expect { player.buy_fuel(1) }.to change { player.fuel }.by(1)
@@ -64,4 +64,64 @@ describe Player do
 			expect { player.buy_fuel(max_fuel * 2) }.to change { player.fuel }.by(max_fuel)
 		end
 	end
+
+	it { should respond_to(:get_used_cargo_space) }
+	context "#get_used_cargo_space" do
+		it "should return 0 if the cargo is empty" do
+			player.cargo = []
+			player.get_used_cargo_space.should == 0
+		end
+
+		it "should return player.cargo_space if the cargo is full" do
+			total_space = player.cargo_space
+			player.cargo = [player.cargo_space / 2, player.cargo_space / 2]
+			player.get_used_cargo_space.should == total_space
+		end
+	end
+
+	it { should respond_to(:buy).with(2).arguments }
+	context "#buy" do
+		before(:each) do
+			planet.set_market(0, [TradeGood.new(1, 0, 0, 0, "T", "some item")])
+			planet.market_quantities[0] = 10
+			planet.market_prices[0] = 1
+		end
+
+		it "should reduce player cash by amount * item price" do
+			expect { player.buy("some item", 5) }.to change { player.cash }.by(-5 * planet.get_item_price(0))
+		end
+
+		it "should reduce player cargo by amount" do
+			expect { player.buy("some item", 5) }.to change { player.cargo_space }.by(-5)
+		end
+
+		it "should reduce planet stock of item by amount" do
+			expect { player.buy("some item", 5) }.to change { planet.market_quantities[0] }.by(-5)
+		end
+
+		it "should increase player stock of item by amount" do
+			expect { player.buy("some item", 5) }.to change { player.cargo[0] }.by(5)
+		end
+
+		it "should return amount" do
+			player.buy("some item", 5).should == 5
+		end
+
+		it "should limit the purchase to the maximum the player can afford" do
+			player.cash = 1
+			expect { player.buy("some item", 999) }.to change { player.cash }.to(0)
+		end
+
+		it "should limit the purchase to the maximum the player can store" do
+			planet.market_quantities[0] = 999
+			expect { player.buy("some item", 999) }.to change { player.cargo_space }.to(0)
+		end
+
+		it "should limit the purchase to the stock held by the planet" do
+			expect { player.buy("some item", 999) }.to change { planet.market_quantities[0] }.to(0)
+		end
+	end
+
+	it { should respond_to(:sell).with(2).arguments }
+	
 end

@@ -80,6 +80,43 @@ class Planet
 		market
 	end
 
+	def get_item_index(item_name)
+		@commodities.each_with_index do |item, index|
+			return index if item.name.gsub(/\s+/, "").upcase == item_name.upcase
+		end
+
+		nil
+	end
+
+	def get_item_quantity(index)
+		return 0 if index < 0 || index >= @commodities.size
+
+		market_quantities[index]
+	end
+
+	def get_item_price(index)
+		return 0 if index < 0 || index >= @commodities.size
+
+		market_prices[index].to_f / 10
+	end
+
+	def get_item_unit(index)
+		return 0 if index < 0 || index >= @commodities.size
+
+		@commodities[index].unit
+	end
+
+	def take_item(index, amount)
+		amount = [amount, market_quantities[index]].min
+		market_quantities[index] -= amount
+
+		amount
+	end
+
+	def give_item(index, amount)
+		market_quantities[index] += amount
+	end
+
 	private
 
 	def set_position(seed)
