@@ -38,6 +38,8 @@ class Game
 			command_jump(parts[1])
 		when "fuel"
 			command_fuel(parts[1])
+		when "help"
+			command_help
 		when "exit"
 			command_exit
 		else
@@ -102,6 +104,25 @@ class Game
 
 		fuel = @player.buy_fuel(amount.to_f)
 		format("You have %.1f LY of fuel", fuel)
+	end
+
+	def command_help
+    output = "\nCommands are:"
+    output << "\nBuy   tradegood ammount"
+    output << "\nSell  tradegood ammount"
+    output << "\nFuel  ammount    (buy ammount LY of fuel)"
+    output << "\nJump  planetname (limited by fuel)"
+    output << "\nSneak planetname (any distance - no fuel cost)"
+    output << "\nGalhyp           (jumps to next galaxy)"
+    output << "\nInfo  planetname (prints info on system"
+    output << "\nMkt              (shows market prices)"
+    output << "\nLocal            (lists systems within 7 light years)"
+    output << "\nCash number      (alters cash - cheating!)"
+    output << "\nHold number      (change cargo bay)"
+    output << "\nQuit or ^C       (exit)"
+    output << "\nHelp             (display this text)"
+    output << "\nRand             (toggle RNG)"
+    output << "\n\nAbbreviations allowed eg. b fo 5 = Buy Food 5, m= Mkt"
 	end
 
 	def command_exit
