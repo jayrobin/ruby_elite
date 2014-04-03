@@ -38,6 +38,10 @@ class Game
 			command_jump(parts[1])
 		when "fuel"
 			command_fuel(parts[1])
+		when "cash"
+			command_cash(parts[1])
+		when "hold"
+			command_hold(parts[1])
 		when "help"
 			command_help
 		when "exit"
@@ -104,6 +108,18 @@ class Game
 
 		fuel = @player.buy_fuel(amount.to_f)
 		format("You have %.1f LY of fuel", fuel)
+	end
+
+	def command_cash(amount)
+		return "Must supply an amount" if amount.nil?
+
+		"Cash set to $#{@player.cash = amount.to_f.abs}"
+	end
+
+	def command_hold(amount)
+		return "Must supply an amount" if amount.nil?
+
+		"Hold set to #{@player.cargo_space = amount.to_f.abs}"
 	end
 
 	def command_help
