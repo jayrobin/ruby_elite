@@ -24,7 +24,7 @@ describe Planet do
 	its(:y) { should be_between(0, 255) }
 	its(:economy) { should be_between(0, 7) }
 	its(:government) { should be_between(0, 7) }
-	its(:tech_level) { should be_between(0, 7) }
+	its(:tech_level) { should be_between(0, 20) }
 	its(:population) { should be_between(0, 43) }
 	its(:name) { should be_an_instance_of(String) }
 

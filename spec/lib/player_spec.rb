@@ -43,6 +43,7 @@ describe Player do
 
 	it { should respond_to(:buy_fuel).with(1).argument }
 	context "#buy_fuel" do
+		before(:each) { player.fuel = 3}
 		it "should increase fuel by the amount supplied" do
 			expect { player.buy_fuel(1) }.to change { player.fuel }.by(1)
 		end
@@ -60,6 +61,7 @@ describe Player do
 		end
 
 		it "should limit the fuel purchase to the player's current cash" do
+			player.cash = 1
 			max_fuel = player.cash
 			expect { player.buy_fuel(max_fuel * 2) }.to change { player.fuel }.by(max_fuel)
 		end
