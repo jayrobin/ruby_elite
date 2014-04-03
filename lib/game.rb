@@ -17,7 +17,7 @@ class Game
 	end
 
 	def parse(input)
-		parts = input.split(" ")
+		parts = input.downcase.split(" ")
 
 		case parts[0]
 		when "buy", "b"
@@ -44,7 +44,7 @@ class Game
 			command_hold(parts[1])
 		when "help"
 			command_help
-		when "exit", "e"
+		when "quit", "q"
 			command_exit
 		else
 			unknown_command(parts[0])
@@ -146,7 +146,7 @@ class Game
     output << "\nQuit or ^C       (exit)"
     output << "\nHelp             (display this text)"
     #output << "\nRand             (toggle RNG)"
-    output << "\n\nAbbreviations allowed eg. b fo 5 = Buy Food 5, m= Mkt\n"
+    output << "\n\nAbbreviations allowed eg. b food 5 = Buy Food 5, m= Mkt\n"
 	end
 
 	def command_exit
