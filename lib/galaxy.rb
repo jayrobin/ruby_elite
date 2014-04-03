@@ -13,7 +13,7 @@ class Galaxy
 
 	def generate(seed)
 		@seed = seed
-		@num.times { @seed.twist }
+		(@num - 1).times { @seed.twist }
 
 		@systems = []
 		NUM_SYSTEMS.times do

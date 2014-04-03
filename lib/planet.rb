@@ -46,10 +46,10 @@ class Planet
 	end
 
 	def calculate_distance(planet)
-		x_dist = (x - planet.x).abs
-		y_dist = (y - planet.y).abs
+		x_dist_sq = (x - planet.x).abs ** 2
+		y_dist_sq = (y - planet.y).abs ** 2
 
-		Math.sqrt((x_dist ** 2) + (y_dist ** 2))
+		(4 * Math.sqrt(x_dist_sq + (y_dist_sq / 4).floor)) / 10;
 	end
 
 	def set_market(fluctuation, commodities = @commodities)
@@ -57,7 +57,7 @@ class Planet
 		@market_quantities = []
 		@market_prices = []
 
-		commodities.each do |item|
+		@commodities.each do |item|
 			product = @economy * item.gradient
 			changing = fluctuation & item.mask_byte
 			q = item.base_quant + changing - product
@@ -72,15 +72,16 @@ class Planet
 	end
 
 	def get_market
-		market = ""
+		market = []
 		@commodities.each_with_index do |item, index|
-			market << format("#{item.name}\t$%.1f\t#{@market_quantities[index]} #{item.unit}\n", @market_prices[index].to_f / 10)
+			market << format("#{item.name}\t$%.1f\t#{@market_quantities[index]} #{item.unit}", @market_prices[index].to_f / 10)
 		end
 
 		market
 	end
 
 	def get_item_index(item_name)
+		item_name ||= ""
 		@commodities.each_with_index do |item, index|
 			return index if item.name.strip.upcase == item_name.upcase
 		end
@@ -129,7 +130,7 @@ class Planet
 	end
 
 	def set_economy(seed)
-		@economy = ((seed.w1 >> 3) & 7)
+		@economy = ((seed.w0 >> 8) & 7).floor
 		@economy |= 2 if @government <= 1
 	end
 
@@ -151,8 +152,7 @@ class Planet
 	end
 
 	def set_name(seed)
-		long_name = seed.w0 & 0x40;
-
+		long_name = seed.w0 & 0x40
 		pair1 = ((seed.w2 >> 8) & 0x1F) << 1
 		seed.tweak
 
@@ -172,7 +172,7 @@ class Planet
 		@name << LETTER_PAIRS[pair3]
 		@name << LETTER_PAIRS[pair3 + 1]
 
-		if long_name
+		if long_name > 0
 			@name << LETTER_PAIRS[pair4]
 			@name << LETTER_PAIRS[pair4 + 1]
 		end

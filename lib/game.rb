@@ -13,10 +13,12 @@ class Game
 	UNIT_G = "g"
 
 	def initialize
-		@galaxy = Galaxy.new(1, load_commodities)
+		commodities = load_commodities
+
+		@galaxy = Galaxy.new(1, commodities)
 		@galaxy.generate(DEFAULT_SEED)
 
-		@player = Player.new(@galaxy.systems[7])
+		@player = Player.new(@galaxy.systems[7], commodities.size)
 		@running = true
 	end
 
@@ -61,14 +63,14 @@ class Game
 
 	private
 
-	def command_buy(item_name = "", amount = 0)
+	def command_buy(item_name, amount = 0)
 		amount = @player.buy(item_name, amount.to_i)
 		return "Could not complete trade" if amount == 0
 
 		"Purchased #{amount} of #{item_name}"
 	end
 
-	def command_sell(item_name = "", amount = 0)
+	def command_sell(item_name, amount = 0)
 		amount = @player.sell(item_name, amount.to_i)
 		return "Could not complete trade" if amount == 0
 
@@ -95,7 +97,7 @@ class Game
 	end
 
 	def command_mkt
-		@player.planet.get_market << "Fuel: #{@player.fuel}\tCargo Space: #{@player.cargo_space}\n"
+		@player.get_market << "Fuel: #{@player.fuel}\tCargo Space: #{@player.cargo_space}\n"
 	end
 
 	def command_jump(planet_name, sneak = false)
@@ -159,7 +161,7 @@ class Game
 	end
 
 	def unknown_command(command)
-		puts "Unrecognised command: #{command}"
+		"Unrecognised command: #{command}"
 	end
 
 	def load_commodities

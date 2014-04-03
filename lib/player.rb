@@ -4,15 +4,27 @@ require_relative 'Game'
 class Player
 	attr_accessor :planet, :cash, :fuel, :cargo_space, :cargo
 
-	MAX_FUEL = 20
+	MAX_FUEL = 7
 
-	def initialize(planet)
+	def initialize(planet, num_commodities)
 		@planet = planet
 
 		@cash = 100
-		@fuel = 10
+		@fuel = MAX_FUEL
 		@cargo_space = 100
-		@cargo = Array.new(10, 0)
+		@cargo = Array.new(num_commodities, 0)
+	end
+
+	def get_market
+		output = ""
+		market = @planet.get_market
+
+		market.each_with_index do |mkt, index|
+			output << "#{mkt}"
+			output << (@cargo[index] > 0 ? "\t#{@cargo[index]}\n" : "\n")
+		end
+
+		output
 	end
 
 	def jump_to(other_planet, sneak = false)
