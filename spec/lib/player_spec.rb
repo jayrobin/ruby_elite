@@ -6,7 +6,7 @@ require 'Seed'
 
 describe Player do
 	subject { player }
-	let(:player) { Player.new(planet) }
+	let(:player) { Player.new(planet, 20) }
 	let(:planet) { Planet.new(seed, []) }
 	let(:seed) { Seed.new(0x5A4A, 0x0248, 0xB753) }
 

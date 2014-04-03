@@ -13,7 +13,6 @@ class Galaxy
 
 	def generate(seed)
 		@seed = seed
-		(@num - 1).times { @seed.twist }
 
 		@systems = []
 		NUM_SYSTEMS.times do
@@ -21,11 +20,12 @@ class Galaxy
 		end
 	end
 
-	def next
+	def next(seed)
 		@num += 1
-		@num = 1 if @num > 9
+		@num = 0 if @num >= 9
 
-		generate(@seed)
+		@num.times { seed.twist }
+		generate(seed)
 	end
 
 	def get_planet(planet_name)

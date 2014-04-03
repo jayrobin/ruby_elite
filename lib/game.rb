@@ -16,7 +16,7 @@ class Game
 		commodities = load_commodities
 
 		@galaxy = Galaxy.new(1, commodities)
-		@galaxy.generate(DEFAULT_SEED)
+		@galaxy.generate(DEFAULT_SEED.dup)
 
 		@player = Player.new(@galaxy.systems[7], commodities.size)
 		@running = true
@@ -111,7 +111,7 @@ class Game
 
 	def command_galhyp
 		current_planet_index = @galaxy.get_planet_index(@player.planet)
-		@galaxy.next
+		@galaxy.next(DEFAULT_SEED.dup)
 		@player.jump_to(@galaxy.systems[current_planet_index], true)
 
 		"Galaxy jump complete, now on #{@player.planet.name}"
@@ -169,10 +169,10 @@ class Game
 		@commodities << TradeGood.new(0x13, -0x02, 0x06, 0x01, UNIT_T, "Food        ")
     @commodities << TradeGood.new(0x14, -0x01, 0x0A, 0x03, UNIT_T, "Textiles    ")
     @commodities << TradeGood.new(0x41, -0x03, 0x02, 0x07, UNIT_T, "Radioactives")
-    @commodities << TradeGood.new(0x28, -0x05, 0xE2, 0x1F, UNIT_T, POLITICALLY_CORRECT ? "Robot Slaves" : "Slaves      ")
+    @commodities << TradeGood.new(0x28, -0x05, 0xE2, 0x1F, UNIT_T, POLITICALLY_CORRECT ? "Robot_Slaves" : "Slaves      ")
     @commodities << TradeGood.new(0x53, -0x05, 0xFB, 0x0F, UNIT_T, POLITICALLY_CORRECT ? "Beverages   " : "Liquor/Wines")
     @commodities << TradeGood.new(0xC4, +0x08, 0x36, 0x03, UNIT_T, "Luxuries    ")
-    @commodities << TradeGood.new(0xEB, +0x1D, 0x08, 0x78, UNIT_T, POLITICALLY_CORRECT ? "Rare Species" : "Narcotics   ")
+    @commodities << TradeGood.new(0xEB, +0x1D, 0x08, 0x78, UNIT_T, POLITICALLY_CORRECT ? "Rare_Species" : "Narcotics   ")
     @commodities << TradeGood.new(0x9A, +0x0E, 0x38, 0x03, UNIT_T, "Computers   ")
     @commodities << TradeGood.new(0x75, +0x06, 0x28, 0x07, UNIT_T, "Machinery   ")
     @commodities << TradeGood.new(0x4E, +0x01, 0x11, 0x1F, UNIT_T, "Alloys      ")
@@ -181,7 +181,7 @@ class Game
     @commodities << TradeGood.new(0x20, -0x01, 0x35, 0x03, UNIT_T, "Minerals    ")
     @commodities << TradeGood.new(0x61, -0x01, 0x42, 0x07, UNIT_KG, "Gold        ")
     @commodities << TradeGood.new(0xAB, -0x02, 0x37, 0x1F, UNIT_KG, "Platinum    ")
-    @commodities << TradeGood.new(0x2D, -0x01, 0xFA, 0x0F, UNIT_G, "Gem-Stones ")
-    @commodities << TradeGood.new(0x35, +0x0F, 0xC0, 0x07, UNIT_T, "Alien Items ")
+    @commodities << TradeGood.new(0x2D, -0x01, 0xFA, 0x0F, UNIT_G, "Gem_Stones ")
+    @commodities << TradeGood.new(0x35, +0x0F, 0xC0, 0x07, UNIT_T, "Alien_Items ")
 	end
 end
