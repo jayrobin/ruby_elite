@@ -12,16 +12,30 @@ class Galaxy
 	end
 
 	def generate(seed)
-		@num.times { seed.twist }
+		@seed = seed
+		@num.times { @seed.twist }
 
 		@systems = []
 		NUM_SYSTEMS.times do
-			@systems << Planet.new(seed, @commodities)
+			@systems << Planet.new(@seed, @commodities)
 		end
+	end
+
+	def next
+		@num += 1
+		@num = 1 if @num > 9
+
+		generate(@seed)
 	end
 
 	def get_planet(planet_name)
 		self.systems.each { |system| return system if system.name == planet_name }
+
+		nil
+	end
+
+	def get_planet_index(planet)
+		self.systems.each_with_index { |system, index| return index if system == planet }
 
 		nil
 	end

@@ -4,6 +4,8 @@ require_relative 'Game'
 class Player
 	attr_accessor :planet, :cash, :fuel, :cargo_space, :cargo
 
+	MAX_FUEL = 20
+
 	def initialize(planet)
 		@planet = planet
 
@@ -13,12 +15,11 @@ class Player
 		@cargo = Array.new(10, 0)
 	end
 
-	def jump_to(other_planet)
-		distance = @planet.calculate_distance(other_planet)
-		
+	def jump_to(other_planet, sneak = false)
+		distance = sneak ? 0 : @planet.calculate_distance(other_planet)
+
 		if distance <= @fuel
-			@planet = other_planet
-			other_planet.set_market((rand * 65536).floor & 0xFF)
+			set_planet(other_planet)
 			@fuel -= distance
 			return true
 		end
@@ -27,7 +28,7 @@ class Player
 	end
 
 	def buy_fuel(amount)
-		amount = [[amount, @cash].min, 0].max
+		amount = [[amount, @cash, MAX_FUEL - @fuel].min, 0].max
 
 		@cash -= amount
 		@fuel += amount
@@ -68,5 +69,12 @@ class Player
 		@planet.give_item(item_index, amount)
 
 		amount
+	end
+
+	private
+
+	def set_planet(other_planet)
+		@planet = other_planet
+		other_planet.set_market((rand * 65536).floor & 0xFF)
 	end
 end

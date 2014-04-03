@@ -36,6 +36,10 @@ class Game
 			command_mkt
 		when "jump"
 			command_jump(parts[1])
+		when "sneak"
+			command_jump(parts[1], true)
+		when "galhyp"
+			command_galhyp
 		when "fuel"
 			command_fuel(parts[1])
 		when "cash"
@@ -94,13 +98,21 @@ class Game
 		@player.planet.get_market << "Fuel: #{@player.fuel}\tCargo Space: #{@player.cargo_space}\n"
 	end
 
-	def command_jump(planet_name)
+	def command_jump(planet_name, sneak = false)
 		return "Must enter a planet name" if planet_name.nil?
 
 		planet = @galaxy.get_planet(planet_name.upcase)
 		return "Could not jump to #{planet_name}" if planet.nil? || planet == @player.planet
 
-		@player.jump_to(planet) ? planet.print(false) : "Not enough fuel"
+		@player.jump_to(planet, sneak) ? planet.print(false) : "Not enough fuel"
+	end
+
+	def command_galhyp
+		current_planet_index = @galaxy.get_planet_index(@player.planet)
+		@galaxy.next
+		@player.jump_to(@galaxy.systems[current_planet_index], true)
+
+		"Galaxy jump complete, now on #{@player.planet.name}"
 	end
 
 	def command_fuel(amount)
