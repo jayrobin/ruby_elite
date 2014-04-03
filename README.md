@@ -20,4 +20,4 @@ Commands:
 * Hold  number      (change cargo bay)
 * Quit or ^C       (exit)
 * Help             (display this text)
-* Abbreviations allowed eg. b food 5 = Buy Food 5, m= Mkt\n
+* Abbreviations allowed eg. b food 5 = Buy Food 5, m = Mkt
