@@ -20,31 +20,31 @@ class Game
 		parts = input.split(" ")
 
 		case parts[0]
-		when "buy"
+		when "buy", "b"
 			command_buy(parts[1], parts[2])
-		when "sell"
+		when "sell", "s"
 			command_sell(parts[1], parts[2])
-		when "local"
+		when "local", "l"
 			command_get_local
-		when "info"
+		when "info", "i"
 			command_info(parts[1])
-		when "mkt"
+		when "mkt", "m"
 			command_mkt
-		when "jump"
+		when "jump", "j"
 			command_jump(parts[1])
-		when "sneak"
+		when "sneak", "s"
 			command_jump(parts[1], true)
-		when "galhyp"
+		when "galhyp", "g"
 			command_galhyp
-		when "fuel"
+		when "fuel", "f"
 			command_fuel(parts[1])
-		when "cash"
+		when "cash", "c"
 			command_cash(parts[1])
-		when "hold"
+		when "hold", "h"
 			command_hold(parts[1])
 		when "help"
 			command_help
-		when "exit"
+		when "exit", "e"
 			command_exit
 		else
 			unknown_command(parts[0])
@@ -132,9 +132,9 @@ class Game
 
 	def command_help
     output = "\nCommands are:"
-    output << "\nBuy   tradegood ammount"
-    output << "\nSell  tradegood ammount"
-    output << "\nFuel  ammount    (buy ammount LY of fuel)"
+    output << "\nBuy   tradegood amount"
+    output << "\nSell  tradegood amount"
+    output << "\nFuel  amount    (buy amount LY of fuel)"
     output << "\nJump  planetname (limited by fuel)"
     output << "\nSneak planetname (any distance - no fuel cost)"
     output << "\nGalhyp           (jumps to next galaxy)"
@@ -145,7 +145,7 @@ class Game
     output << "\nHold number      (change cargo bay)"
     output << "\nQuit or ^C       (exit)"
     output << "\nHelp             (display this text)"
-    output << "\nRand             (toggle RNG)"
+    #output << "\nRand             (toggle RNG)"
     output << "\n\nAbbreviations allowed eg. b fo 5 = Buy Food 5, m= Mkt\n"
 	end
 
