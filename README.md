@@ -7,17 +7,17 @@ A Ruby port of the [text-based version of Elite](http://www.iancgbell.clara.net/
 run elite.rb
 
 Commands:
-* Buy   tradegood amount
-* Sell  tradegood amount
-* Fuel  amount    (buy amount LY of fuel)
-* Jump  planetname (limited by fuel)
-* Sneak planetname (any distance - no fuel cost)
+* Buy   *tradegood* *amount* (buy amount of tradegood)
+* Sell  *tradegood* *amount* (sell amount of tradegood)
+* Fuel  *amount*    (buy amount LY of fuel)
+* Jump  *planetname* (limited by fuel)
+* Sneak *planetname* (jump any distance at no fuel cost)
 * Galhyp           (jumps to next galaxy)
-* Info  planetname (prints info on system
-* Mkt              (shows market prices)
+* Info  *planetname* (prints info on current system)
+* Mkt              (shows market prices in the current system)
 * Local            (lists systems within 7 light years)
-* Cash  number      (alters cash - cheating!)
-* Hold  number      (change cargo bay)
+* Cash  *number*      (cheat: alters player cash)
+* Hold  *number*      (cheat: alters cargo bay size)
 * Quit or ^C       (exit)
-* Help             (display this text)
+* Help             (display available commands)
 * Abbreviations allowed eg. b food 5 = Buy Food 5, m = Mkt
