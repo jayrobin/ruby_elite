@@ -1,5 +1,5 @@
 require_relative 'random'
-require_relative 'Game'
+require_relative 'game'
 
 class Player
 	attr_accessor :planet, :cash, :fuel, :cargo_space, :cargo
